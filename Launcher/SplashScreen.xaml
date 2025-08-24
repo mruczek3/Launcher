@@ -1,0 +1,132 @@
+﻿<Window x:Class="Launcher.SplashScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Height="600" Width="1000"
+        ShowInTaskbar="False"
+        Topmost="True">
+
+    <Grid>
+        <!-- Gradientowe tło -->
+        <Grid.Background>
+            <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="1" RadiusY="1">
+                <GradientStop Color="#0A0C17" Offset="0"/>
+                <GradientStop Color="#141823" Offset="1"/>
+            </RadialGradientBrush>
+        </Grid.Background>
+
+        <!-- Promienie w tle -->
+        <Rectangle Fill="#204AC6FF" Width="1200" Height="1200" RenderTransformOrigin="0.5,0.5" Opacity="0.12">
+            <Rectangle.RenderTransform>
+                <RotateTransform Angle="0"/>
+            </Rectangle.RenderTransform>
+            <Rectangle.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                             From="0" To="360" Duration="0:0:25"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Rectangle.Triggers>
+        </Rectangle>
+
+        <!-- Efekt scanline (pasy) -->
+        <Rectangle Fill="Transparent" Stroke="#10FFFFFF" StrokeThickness="1"
+                   VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                   Height="2" Margin="0">
+            <Rectangle.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)"
+                                             From="0" To="600" Duration="0:0:2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Rectangle.Triggers>
+        </Rectangle>
+
+        <!-- Losowe cząsteczki (iskrzenie) -->
+        <Canvas>
+            <Ellipse Width="3" Height="3" Fill="#4AC6FF" Canvas.Left="200" Canvas.Top="400" Opacity="0.6">
+                <Ellipse.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard RepeatBehavior="Forever">
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="0" Duration="0:0:2" AutoReverse="True"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Ellipse.Triggers>
+            </Ellipse>
+            <Ellipse Width="2" Height="2" Fill="#5B86FF" Canvas.Left="700" Canvas.Top="300" Opacity="0.7">
+                <Ellipse.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard RepeatBehavior="Forever">
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.7" To="0" Duration="0:0:3" AutoReverse="True"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Ellipse.Triggers>
+            </Ellipse>
+        </Canvas>
+
+        <!-- Logo -->
+        <Image x:Name="Logo"
+               Source="Images/logoo.png"
+               Width="180" Height="180"
+               RenderTransformOrigin="0.5,0.5" Opacity="0">
+            <Image.RenderTransform>
+                <ScaleTransform ScaleX="0" ScaleY="0"/>
+            </Image.RenderTransform>
+            <Image.Effect>
+                <DropShadowEffect Color="#5B86FF" BlurRadius="40" ShadowDepth="0" Opacity="0.9"/>
+            </Image.Effect>
+        </Image>
+
+        <!-- Tekst -->
+        <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,120">
+            <TextBlock x:Name="TitleText"
+                       Text="Old SCP:SL Launcher"
+                       FontSize="44"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       Opacity="0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#4AC6FF" BlurRadius="25" ShadowDepth="0" Opacity="0.9"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <!-- Błysk przechodzący po tekście -->
+            <Rectangle Width="140" Height="80" Opacity="0.3" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#00FFFFFF" Offset="0"/>
+                        <GradientStop Color="#80FFFFFF" Offset="0.5"/>
+                        <GradientStop Color="#00FFFFFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+                <Rectangle.RenderTransform>
+                    <TranslateTransform X="-400"/>
+                </Rectangle.RenderTransform>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard RepeatBehavior="Forever">
+                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                 From="-400" To="400" Duration="0:0:3"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+        </Grid>
+    </Grid>
+</Window>
